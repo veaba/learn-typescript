@@ -68,13 +68,87 @@
 ```
 ## vscode 支持
 > 拓展 tslint
-> ctrl+shift+b 监视
+> ctrl+shift+b 监视  ,运行task typescript run watch任务
 > 可以生成到不同的文件夹中去
+## 因为使用webstorm的隐射关系，所以，这里的task运行快捷键见如下
+> alt+shift+f10 
 ## ts 类型
-
 - string
 - any
+## 新知识
+### interfaces 接口
+### generics 泛型
+### 类 classes
+### enums 枚举
+## 基础类型
+- boolean
+- number  
+> 接受十进制、十六进制、二进制、八进制
+- string
+> 符号 “ ' `
+- 数组
+  - `let list:number[]=[1,2,3]` 表示数字组成的数组
+  - `let list:Array<number>=[,2,3]` 使用数组泛型，array <元素类型>
+- 元组 Tuple
+> 越界情况，意思是不在之前约定的长度范围内，则类型只能使用两者之一，否则也会报错
 
+```typescript
+let x =[string,number]
+ x =['hello',100] //ok
+ x=[10,'helloe']//error
+```
+- 枚举 enum，对js的一个数据类型补充
+```typescript
+  enum Color {Red=1,Gree=14,Blue=399}
+  let c:Color=Color.Green
+```
+- 任意值 any
+```typescript
+  let noSure:any 4;
+  noSure ="maybe a String"
+  noSure =false
+```
+- 空值 void
+> 常见函数没有return 返回值时，通常`void`
+```typescript
+function warn():void{
+  alert('this warning msg')
+}
+// so 你只能给他void undefined null
+let unVoid:void =undefined || null
+```
+- null和undefined
+> `--strickNullChecks ` 只能赋值给void和他们自己，避免很多常见问题，比如？
+- Never
+```typescript
+// 返回never的函数，必须存在无法到达的终点
+function error(msg:string):never{
+  throw err(msg)
+}
+// 推断的返回值类型为 never
+function fail(){
+  return error("xxx")
+}
+// 返回never的函数，必须存在无法到达的终点
+function infiniteLoop():never{
+  while(true){
+
+  }
+}
+```
+- Object 对象
+> 又忘记了 Object.create() 的用法了，不行呀~~记不住这些API 苦恼
+```typescript
+declare function create(o: object | null): void;
+
+create({ prop: 0 }); // OK
+create(null); // OK
+
+create(42); // Error
+create("string"); // Error
+create(false); // Error
+create(undefined); // Error
+```
 ## 警告
 
 ### 尝试不入参，会报错误

@@ -15,5 +15,5 @@ var Student = /** @class */ (function () {
 function ge(person) {
     return 'hello1,' + person.firstName + ' ' + person.lastName;
 }
-var user = new Student('Ji', 'Gao.', 'Zheng');
+var user = new Student('Ji', 'Gao.', 'Zheng1112');
 document.body.innerHTML = ge(user);

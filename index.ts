@@ -19,6 +19,6 @@ interface Person{
 function ge(person:Person){
     return 'hello1,' +person.firstName+' '+person.lastName
 }
-let user = new Student ('Ji','Gao.','Zheng');
+let user = new Student ('Ji','Gao.','Zheng1112');
 document.body.innerHTML=ge(user);
 
