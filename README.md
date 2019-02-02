@@ -81,10 +81,10 @@
 ### 类 classes
 ### enums 枚举
 ## 基础类型
-- boolean
-- number  
+- `boolean`
+- `number`  
 > 接受十进制、十六进制、二进制、八进制
-- string
+- `string`
 > 符号 “ ' `
 - 数组
   - `let list:number[]=[1,2,3]` 表示数字组成的数组
@@ -117,7 +117,7 @@ function warn():void{
 // so 你只能给他void undefined null
 let unVoid:void =undefined || null
 ```
-- null和undefined
+- `null和undefined`
 > `--strickNullChecks ` 只能赋值给void和他们自己，避免很多常见问题，比如？
 - Never
 ```typescript
