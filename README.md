@@ -113,6 +113,7 @@ document.body.innerHTML=ge()
 ## generics 泛型
 ## 类 classes
 ### 概念
+
 - `class` 类，定义一个事物的抽象特点，包含 属性和方法
 - `object` 对象，类的实例，通过new 生成
 - `OOP` 面向对象：封装、继承、多态
@@ -123,8 +124,35 @@ document.body.innerHTML=ge()
 - `modifiers`：一些关键字，用于限定成员或类型的性质，比如`public`表示共用属性或方法，`private`则表示私有
 - `abstract class`抽象类，供给其他类继承的 `基础类`，且不允许被实例化，抽象方法必须在子类中被实现
 - `interface`接口：不同类之间公有的属性和方法，可以抽象成一个接口。接口可以被类实现，一类`只能`继承自`另一个类`，但可以实现多个接口
+
 ### es6类
 > http://es6.ruanyifeng.com/#docs/class
+
+```js
+  class Animal{
+    constructor(name){
+      this.name=name
+    }
+    sayHi(){
+      return `My name is: ${this.name}`//如果是this.name=>name，则无法获取到。
+    }
+  }
+  let cat= new Animal('cat')
+  console.log(cat.sayHi())
+  // 类的继承
+  class Cat extends Animal{
+    constructor(name){
+      super(name)//调用父类的constuctor(name)
+      console.log(this.name)
+    }
+    sayHi1(){
+      return `I am sayHi1:${this.name} `
+    }
+  }
+
+  // 此时 cat 实例就有两个方法和一个实例
+  let cat= new Cat('丁丁')
+```
 ## enums 枚举
 ## 基础类型
 - `boolean`
