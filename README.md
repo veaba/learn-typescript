@@ -1,11 +1,20 @@
 
 ----------------------------------------------------------
-## 常识
+## 常识及术语
 - `.ts`后缀文件
 - `.tsx`后缀文件
 - `.d.ts`后缀文件。用来标注js的数据库？
 - 没有类似 `v8`的 `typeScript` 解析引擎
 - 没有类似 `node.js`的 `typeScript` runtime  `type.ts` 环境
+- `implement`！！？？实现的意思， 类似es6中的 extends？
+```typescript
+// 这里的implements 啥意思？
+class ZipCodeValidator implements StringValidator {
+    isAcceptable(s: string) {
+        return s.length === 5 && numberRegexp.test(s);
+    }
+}
+```
 ## 警告
 
 
@@ -14,8 +23,8 @@
 function ge(person:any){
     return 'hello,' +person
 }
-let user = [1,3,3]
-document.body.innerHTML=ge()
+let user = [1,3,3];
+document.body.innerHTML=ge(user)
 ```
 ###  vscode 的ts检查是本项目全部检查，所以如果有a文件中有某个对象的interface，另外一个文件中同名，则会包警告你新建的对象需要遵从第一个的对象interface定义的数据类型格式，否则会报错。
 
@@ -26,7 +35,7 @@ document.body.innerHTML=ge()
 > tsc -init  // 初始化项目，vscode 会生产 tsconfig.json
 
 ```js
-{
+const json ={
   "compilerOptions": {
     /* Basic Options */
     "target": "es",                          /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */
@@ -85,8 +94,8 @@ document.body.innerHTML=ge()
     // "experimentalDecorators": true,        /* Enables experimental support for ES7 decorators. */
     // "emitDecoratorMetadata": true,         /* Enables experimental support for emitting type metadata for decorators. */
   }
-}
-
+};
+console.info(json);
 ```
 ## vscode 支持
 > 拓展 tslint
@@ -99,16 +108,18 @@ document.body.innerHTML=ge()
 - any
 ## interfaces 接口
 - 一种定义对象的类型，相当于自定义一种关于对象的数据类型格式
-- 形状大小都要一直，
+- 形状大小都要一致
+
 ```typescript
-  interface Persion{
+  interface Person4{
     name:string,
     age:number
   }
-  let tim:Persion={
-    namer:'Tim',
+  let tim:Person4={
+    name:'Tim',
     age:26
-  }
+  };
+  console.log(tim)
 ```
 ## generics 泛型
 ## 类 classes
@@ -137,12 +148,12 @@ document.body.innerHTML=ge()
       return `My name is: ${this.name}`//如果是this.name=>name，则无法获取到。
     }
   }
-  let cat= new Animal('cat')
-  console.log(cat.sayHi())
+  let cat= new Animal('cat');
+  console.log(cat.sayHi());
   // 类的继承
   class Cat extends Animal{
     constructor(name){
-      super(name)//调用父类的constuctor(name)
+      super(name);//调用父类的constuctor(name)
       console.log(this.name)
     }
     sayHi1(){
@@ -151,7 +162,7 @@ document.body.innerHTML=ge()
   }
 
   // 此时 cat 实例就有两个方法和一个实例
-  let cat= new Cat('丁丁')
+  let cat1= new Cat('丁丁')
 ```
 ## enums 枚举
 ## 基础类型
@@ -170,8 +181,8 @@ document.body.innerHTML=ge()
 > 越界情况，意思是不在之前约定的长度范围内，则类型只能使用两者之一，否则也会报错
 
 ```typescript
-let x =[string,number]
- x =['hello',100] //ok
+let x =[string,number];
+ x =['hello',100]; //ok
  x=[10,'helloe']//error
 ```
 - 枚举 enum，对js的一个数据类型补充
@@ -181,8 +192,8 @@ let x =[string,number]
 ```
 ### `any` 任意值
 ```typescript
-  let noSure:any 4;
-  noSure ="maybe a String"
+  let noSure:any;
+  noSure ="maybe a String";
   noSure =false
 ```
 ### `void` 空值
@@ -200,7 +211,7 @@ let unVoid:void =undefined || null
 ```typescript
 // 返回never的函数，必须存在无法到达的终点
 function error(msg:string):never{
-  throw err(msg)
+  throw Error(msg)
 }
 // 推断的返回值类型为 never
 function fail(){
@@ -209,7 +220,7 @@ function fail(){
 // 返回never的函数，必须存在无法到达的终点
 function infiniteLoop():never{
   while(true){
-
+	console.log('forever~~')
   }
 }
 ```
@@ -333,8 +344,8 @@ function getLength1(something){
     } else {
         return something.toString().length;
     }
-};
-getLength1(11)
+}
+getLength1(11);
 getLength1('11')
 ```
 ## 内置对象
@@ -369,29 +380,29 @@ document.addEventListener('click', function(e: MouseEvent) {
 ## typeScript 的能力
 ### 类型推断能力
 ```typescript
-  let s='I am a string'
-  s=2333//这里将原本的 string 类型变更为数字类型
+  let s='I am a string';
+  s=2333;//这里将原本的 string 类型变更为数字类型
 
   // 以上等同于
-  let s:string = 'I am a string'
-  s=2333
+  let s:string = 'I am a string';
+  s=2333;
 
   // 从第一段可看出，在ts中和原生js里面，变量的类型有了很大的变化，为此，需要这么写：
   let s//自动推断为any
-  s='I am a string'
-  s=2333
+  s='I am a string';
+  s=2333;
   // or 
-  let s:any
-  s="I am a string"
+  let s:any;
+  s="I am a string";
   s=2333
 ```
 ### 联合类型
 > 可以为该变量指定多个数据的类型
 
 ```typescript
-  let s: string|number
-  s="I am a String"
-  s=2333
+  let s: string|number;
+  s="I am a String";
+  s=2333;
 
   // error
   s=true
@@ -442,24 +453,251 @@ hand(document.querySelector('#d'),'scroll')//error
 - 可选属性`？:` 可选的，依然不允许添加未定义的属性
 - 任意属性 `[propName:string]:any`  任意的，但其他的属性，都要遵从此处的类型规定
 - 只读属性`readonly id:number`,且 一定要有该属性
-```js
-interface Person{
-  firstName:'Jo',
+```typescript
+interface Person_1{
+  firstName:'Jo'
   lastName:'Gol'
 // 错误的示范
-
-interface Person1 {
+}
+interface Person1_2{
     readonly id:number;
     name: string;
     age?: number;//因为是number，但任意类型是string，所以此处是错误的，必须将age改为string，或者 string|number。缺定义的是时候，因为缺少了age属性，所以，还有一个undefined
     [propName:string]:string;//或者 此处改为 string|undefiner|number、或者 any
 }
 
-let person1: Person1 = {
+let person3: Person1_2 = {
     id:2333,
     name: 'Tom',
     aget: 'x'
 };
 // error 如果在ts对readonly 属性赋值。则会报错
-persion1.id:11111 //error
+person3.id=11111 //error
 ```
+## modules
+- `模块里面不要用命名空间`
+- `命名空间使用模块，几乎没有什么价值`
+- `文件的顶层声明是export namespace Foo { ... }（删除Foo并把所有内容向上层移动一层）` 
+- `文件只有一个export class或export function （考虑使用export default）`
+- `多个文件的顶层具有同样的export namespace Foo { （不要以为这些会合并到一个Foo中！）`
+### 关于模块的tsc命令
+```shell
+	tsc --module commonkjs test.ts
+
+```
+### 将整个模块导入到一个变量
+```typescript
+	import * as xxx from 'xxx'
+	let tt= new xxx.alert('喵~~')
+```
+### 具有副作用的导入模块
+> import './t.ts'
+
+### 关于export default
+- export导出一个值
+> export default '1231'
+### `export =` 和`import = require()`
+
+> export = aVar ，此时需要使用ts语法  import module= require('module')
+
+> import a_var = './xx'
+
+### 生成模块代码
+- simpleModule.ts
+```js
+import m= require('mode)
+export let t=m.t+1
+```
+- require.js(AMD)
+```js
+define(['require','exports','./mod'],function( require,exports,mod_1) {
+  exports.t=mod_1.test+1
+})
+
+```
+- node.js(common.js)/SimpleModule.js
+```js
+let mod=  require('mod')
+export.t= mod.test+1
+```
+- UMD `真长啊~~`
+```js
+(function (factory) {
+    if (typeof module === "object" && typeof module.exports === "object") {
+        let v = factory(require, exports); if (v !== undefined) module.exports = v;
+    }
+    else if (typeof define === "function" && define.amd) {
+        define(["require", "exports", "./mod"], factory);
+    }
+})(function (require, exports) {
+    let mod_1 = require("./mod");
+    exports.t = mod_1.something + 1;
+});
+```
+- SystemJS
+
+```js
+
+System.register(["./mod"], function(exports_1) {
+    let mod_1;
+    let t;
+    return {
+        setters:[
+            function (mod_1_1) {
+                mod_1 = mod_1_1;
+            }],
+        execute: function() {
+            exports_1("t", t = mod_1.something + 1);
+        }
+    }
+});
+```
+
+- Native ECMAScript 2015 modules SimpleModule.js，es6的方式
+```js
+import { something } from "./mod";
+export let t = something + 1;
+
+```
+### 外部模块
+- node.d.ts
+```typescript
+declare module "url" {
+    export interface Url {
+        protocol?: string;
+        hostname?: string;
+        pathname?: string;
+    }
+
+    export function parse(urlStr: string, parseQueryString?, slashesDenoteHost?): Url;
+}
+
+declare module "path" {
+    export function normalize(p: string): string;
+    export function join(...paths: any[]): string;
+    export let sep: string;
+}
+```
+- app.ts
+```typescript
+/// <reference path="node.d.ts"/>
+import * as URL from "url";
+let myUrl = URL.parse("http://www.typescriptlang.org");
+```
+- 支持通配符 
+	- "*!text"
+	- "json!*"
+- UMD 
+## 命名空间
+- `tsc --outFile sample.js Test.ts` 将所有输入文件编译为一个输出文件，需要 `--outFile`标记
+## 命名空间和模块
+- TypeScript里模块的一个特点是不同的模块永远也不会在相同的作用域内使用相同的名字
+- 不应该对模块使用命名空间
+ 
+错误的使用 
+```typescript
+
+//a.ts
+export namespace Shapes {
+    export class xxx{
+	}
+}
+
+// b.ts
+import * as shapes from "./shapes";
+let t = new shapes.Shapes.xxx();
+```
+
+
+修正的使用
+```typescript
+
+//a.ts
+export class xxx{
+}
+
+// b.ts
+import * as shapes from "./shapes";
+let t = new shapes.xxx();
+
+```
+## 声明合并
+- 类不能与其他类或变量合并
+
+|声明类型|Namespace|Type|Value|
+|----|----|----|----|
+|Namespace命名空间|×||×|
+|Class类||×|x|
+|Enum枚举||×|x|
+|Interface接口||×||
+|Type Alias类型别名||×||
+|Function函数|||×|
+|Variable变量|||×|
+
+### interface 合并
+```typescript
+interface Box {
+  height:number,
+  width:number
+}
+interface Box {
+  size:number
+}
+let box:Box={
+    height:33,
+    width:99,
+    size:666
+}
+```
+### namespace 合并
+- `从其他命名空间合并进来的成员无法访问非导出成员`
+```typescript
+	namespace Animals{
+    	export class God {
+    	  
+    	}
+	}
+	namespace Animals{
+    	export class Cat {
+    	  
+    	}
+	}
+	
+	//=>>
+	namespace Animals{
+    	export class God{
+    	    
+    	}
+    	export class Cat {
+    	  
+    	}
+	}
+```
+### 命名空间、类、函数、枚举合并
+
+### 全局拓展
+```typescript
+	declare global{
+    	interface Array<T> {
+    	    //Do something
+    	}
+	}
+```
+
+## 书写d.ts 文件 `暂缺`
+
+## JSX
+> facebook 的React 使用jsx，从而导致流行起来
+
+### typescript三种JSX模式
+- hsc --jsx 做标记
+
+|模式|输入|输出|拓展名|
+|----|----|----|----|
+|preserve[prɪˈzɜ:rv]|`<div/>`|`<div/>`|`.jsx`|
+|react|`<div/>`|`React.createElement('div')`|`js`|
+|react-native|`<div/>`|`<div/>`|`js`|
+
+### as 操作符 
+> https://zhongsp.gitbooks.io/typescript-handbook/content/doc/handbook/JSX.html
+## Decorators 装饰！！`常见这个`
