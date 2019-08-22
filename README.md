@@ -106,6 +106,7 @@ console.info(json);
 ## ts 类型[*重复bug]
 - string
 - any
+
 ## interfaces 接口
 - 一种定义对象的类型，相当于自定义一种关于对象的数据类型格式
 - 形状大小都要一致
@@ -121,6 +122,98 @@ console.info(json);
   };
   console.log(tim)
 ```
+
+### 可选属性
+### 只读属性
+### 额外的属性检查
+
+```typescript
+interface aface{
+  color?:string;
+  width?:number;
+  [propName:string]:any  //支持以外的任意数量的属性
+}
+
+
+
+```
+### 类型断言
+
+
+### 函数类型
+
+```ts
+
+interface SearchFnc{
+  (source:string,subString:string):boolean
+}
+let mySearch:SearchFnc
+let fnSearch:SearchFnc
+
+mySearch=((source:string,subString:string)):boolean=>{
+  let result= source.search(subString)
+  return result>-1
+}
+
+// 如果是箭头函数则如下：
+
+fnSearch= (source: string, subString: string)=>{
+let result = source.search(subString)
+ 	return result > -1
+ }
+
+```
+
+### 可索引类型 
+
+看不出这个玩意有个锤子用？？
+
+=》禁止数组只读吗？
+
+```ts
+interface ReadonlyStringArray {
+    readonly [index: number]: string;
+}
+let myArray: ReadonlyStringArray = ["Alice", "Bob"];
+myArray[2] = "Mallory"; // error!
+```
+
+### 继承接口
+
+```ts
+interface A{
+    color:string
+}
+interface B{
+    width:number
+}
+
+interface S extends A{
+    age:number
+}
+interface X extends A,B{
+    heigth:number
+}
+
+// let a=<S>{}  疑问？为什么这里是<B>{}??
+// a.color="red"
+// a.age=6969
+// console.log(a)
+
+// 报错
+// let b:S
+// b.age=99
+// b.color="99"
+// console.log(b)
+
+
+```
+
+### 混合类型
+
+
+
+
 ## generics 泛型
 ## 类 classes
 ### 概念
@@ -135,6 +228,11 @@ console.info(json);
 - `modifiers`：一些关键字，用于限定成员或类型的性质，比如`public`表示共用属性或方法，`private`则表示私有
 - `abstract class`抽象类，供给其他类继承的 `基础类`，且不允许被实例化，抽象方法必须在子类中被实现
 - `interface`接口：不同类之间公有的属性和方法，可以抽象成一个接口。接口可以被类实现，一类`只能`继承自`另一个类`，但可以实现多个接口
+- 类具有两个类型：静态部位类型和实例类型
+
+
+### 如何实现类接口？？
+
 
 ### es6类
 > http://es6.ruanyifeng.com/#docs/class
