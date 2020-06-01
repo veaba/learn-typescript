@@ -15,6 +15,18 @@ class ZipCodeValidator implements StringValidator {
     }
 }
 ```
+## 问题
+
+1. ts 的class 如何用接口声明？
+
+2. Error:(11, 19) TS2339: Property 'assign' does not exist on type 'ObjectConstructor'.
+return bject.assign({}, defaultConfig);
+>  (<any>Object).assign({}, defaultConfig); // 或者更改target='es6'，因为es5不支持
+
+3. Error:(47, 22) TS2339: Property 'videoElement' does not exist on type 'typeof Features'.
+
+> fix:private static videoElement:any=undefined;
+
 ## 警告
 
 
